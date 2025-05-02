@@ -1,0 +1,21 @@
+{
+    "name": "babld/yii2-avito",
+    "type": "yii2-extension",
+    "autoload": {
+        "psr-4": {
+            "babld\\avito\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pavel",
+            "email": "pashk0s@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*"
+    }
+}
