@@ -16,6 +16,7 @@ class m250501_113319_avito extends Migration
             'item_id' => $this->integer(),
             'model_name' => $this->string(),
         ]);
+        // test
     }
 
     /**
@@ -23,8 +24,6 @@ class m250501_113319_avito extends Migration
      */
     public function safeDown()
     {
-        echo "m250501_113319_avito cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('avito');
     }
 }
