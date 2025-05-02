@@ -1,5 +1,7 @@
 {
     "name": "babld/yii2-avito",
+    "description": "Расширение для автозагрузки объявлений на avito",
+    "license": "BSD-3-Clause",
     "type": "yii2-extension",
     "autoload": {
         "psr-4": {
@@ -15,7 +17,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii2": "*",
-        "yiisoft/yii2-bootstrap": "*"
+        "yiisoft/yii2": "2.*"
     }
 }
