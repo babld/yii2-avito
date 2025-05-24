@@ -2,14 +2,13 @@
 
 namespace babld\avito\behaviors;
 
-use babld\avito\helpers\Repository;
 use babld\avito\models\Avito;
-use yii\helpers\ArrayHelper;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use yii;
 use yii\base\Event;
 use yii\db\Exception;
+use yii\helpers\StringHelper;
 
 class AvitoFields extends Behavior
 {
@@ -23,11 +22,9 @@ class AvitoFields extends Behavior
         ];
     }
 
-    public function getAvitoClassName()
+    public function getOwnerClassName()
     {
-        $model = explode('\\', $this->owner::class);
-
-        return end($model);
+        return StringHelper::basename($this->owner::className());
     }
 
     /**
@@ -35,52 +32,33 @@ class AvitoFields extends Behavior
      */
     public function updateFields(Event $event)
     {
-        if (isset(Yii::$app->request) && method_exists(Yii::$app->request, 'post')) {
-            $post = Yii::$app->request->post();
-            $modelName = $this->getAvitoClassName();
-
-            if (Avito::findOne(['item_id' => $this->owner->id, 'model_name' => $modelName])) {
-                Avito::deleteAll(['item_id' => $this->owner->id, 'model_name' => $modelName]);
-            }
-
-            $items = [];
-            foreach ($post['Avito']['field_name'] as $key => $value) {
-
-                $baseValue = new Repository()->houseSales[$key];
-                $type = ArrayHelper::getValue($baseValue, 'type');
-                $avitoRequest = Yii::$app->request->post('Avito');
-
-                if (
-                    is_array($baseValue)
-                    && in_array($type, [Repository::INPUT_TYPE_MULTI_SELECT, Repository::INPUT_TYPE_CHECKBOX_LIST])
-                ) {
-
-                    if (!is_array(Yii::$app->request->post('Avito')['field_name'][$key])) {
-                        continue;
-                    }
-
-                    foreach (Yii::$app->request->post('Avito')['field_name'][$key] ?? [] as $val) {
-                        $items[] = [
-                            'item_id' => $this->owner->id,
-                            'model_name' => $modelName,
-                            'value' => $val,
-                            'field_name' => $key,
-                        ];
-                    }
-                } else {
-                    $items[] = [
-                        'item_id' => $this->owner->id,
-                        'model_name' => $modelName,
-                        'value' => $value,
-                        'field_name' => $key,
-                    ];
-                }
-            }
-
-            Yii::$app->db->createCommand()
-                ->batchInsert(Avito::tableName(), ['item_id', 'model_name', 'value', 'field_name'], $items)
-                ->execute();
+        if (!isset(Yii::$app->request) || !method_exists(Yii::$app->request, 'post')) {
+            return;
         }
+
+        $post = Yii::$app->request->post();
+
+        if (!$model = $this->findModel()) {
+            $model = new Avito;
+        }
+
+        $model->load($post);
+        $this->feel($model);
+        $model->save();
+    }
+
+    protected function feel(Avito &$model)
+    {
+        $model->item_id = $this->owner->id;
+        $model->model_name = $this->getOwnerClassName();
+        $model->internal_id = $this->getId();
+        $model->category = 'Дома, дачи, коттеджи';
+        $model->operation_type = 'Продам';
+    }
+
+    public function findModel(): ?Avito
+    {
+        return Avito::findOne(['item_id' => $this->owner->id, 'model_name' => $this->getOwnerClassName()]);
     }
 
     public function deleteFields($event)
@@ -92,35 +70,32 @@ class AvitoFields extends Behavior
         return true;
     }
 
-    public function getAvito()
+    public function validateFields(Event $event)
     {
-        if ($model = Avito::find()->where(['item_id' => $this->owner->id, 'modelName' => $this->getAvitoClassName()])->one()) {
-            return $model;
-        } else {
-            return new Avito;
+        /** @var Avito $avitoModel */
+        if (!$avitoModel = $this->findModel()) {
+            $avitoModel = new Avito;
+        }
+
+        if ($avitoModel->load(Yii::$app->request->post())) {
+            $this->feel($avitoModel);
+
+            if (!$avitoModel->is_active) {
+                return true;
+            }
+
+            if (!$avitoModel->validate()) {
+                foreach ($avitoModel->errors as $attribute => $errors) {
+                    foreach ($errors as $error) {
+                        $this->owner->addError('Avito.' . $attribute, $error);
+                    }
+                }
+            }
         }
     }
 
-    public function validateFields(Event $event)
+    protected function getId(): string
     {
-        $avitoRequest = Yii::$app->request->post('Avito');
-        $avitoFields = ArrayHelper::getValue($avitoRequest, 'field_name');
-
-        $isActive = (bool) ArrayHelper::getValue($avitoFields, Repository::FIELD_IS_ACTIVE, false);
-
-//        echo "<pre>"; var_dump($isActive, $avitoRequest);exit;
-
-        if ($isActive) {
-
-             $event->isValid = false;
-    //        $this->owner->addErrors([
-    //            ["Avito[Address]" => 'Необходимо заполнить адрес'],
-    //            ["Avito[field_name][Address]" => 'error 2'],
-    //            ['price' => 'error 3'],
-    //        ]);
-            $this->owner->addError('Lots[price]', 'price error');
-            $this->owner->addError('Avito[' . Repository::FIELD_ADDRESS. ']', 'address error');
-            //echo "<pre>"; var_dump($avitoRequest);exit;
-        }
+        return mb_strtolower($this->getOwnerClassName() . '_' . $this->owner->id);
     }
 }

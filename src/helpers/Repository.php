@@ -66,7 +66,7 @@ class Repository
         self::FIELD_ID => [
             'type' => self::INPUT_TYPE_TEXT,
             'disabled' => true,
-            'value' => 'calculated',
+            'calculated' => true,
             'function' => 'getId',
             'required' => true,
         ],
@@ -248,10 +248,7 @@ class Repository
 
             if (
                 is_array($baseValue)
-                && (
-                    $baseValue['type'] === self::INPUT_TYPE_MULTI_SELECT ||
-                    $baseValue['type'] === self::INPUT_TYPE_CHECKBOX_LIST
-                )
+                && in_array($baseValue['type'], [self::INPUT_TYPE_MULTI_SELECT, self::INPUT_TYPE_CHECKBOX_LIST])
             ) {
                 $result[$avito->field_name]['selected'][] = $avito->value;
                 continue;
@@ -262,12 +259,14 @@ class Repository
                 continue;
             }
 
+
             if (
                 is_array($baseValue)
                 && $baseValue['type'] === self::INPUT_TYPE_TEXT
-                && ArrayHelper::getValue($baseValue, 'value') === 'calculated'
+                && ArrayHelper::getValue($baseValue, 'calculated')
                 && ArrayHelper::getValue($baseValue, 'function')
             ) {
+
                 $result[$avito->field_name] = [
                     'value' => $this->{$baseValue['function']}(),
                     'disabled' => ArrayHelper::getValue($baseValue, 'disabled')
@@ -276,11 +275,6 @@ class Repository
             }
 
             $result[$avito->field_name] = $avito->value;
-
-//            if ($avito->field_name == self::FIELD_VIDEO) {
-//                var_dump($result);exit;
-//
-//            }
         }
 
         return $result;

@@ -1,109 +1,112 @@
 <?php
 
-namespace backend\components;
+namespace babld\avito\components;
 
 use common\models\Lots;
 use dvizh\gallery\models\Image;
 use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
+use yii;
 
 class Avito
 {
-    public static function generateXml(array $lots): array
-    {
-        $return = '<Ads formatVersion="3" target="Avito.ru">';
 
-        return $return;
+    public function generateXml($class, $itemIds): string
+    {
+        $xml = '<Ads formatVersion="3" target="Avito.ru">' . "\n";
+
+        $xml .= $this->generateAds($class, $itemIds);
+
+        return $xml;
     }
 
-
-    protected function getList($lots) {
+    protected function generateAds($class, $itemIds)
+    {
         $return = '';
+        $modelName = StringHelper::basename($class);
 
-        foreach($lots as $lot) {
-            /** @var Lots $lot */
-            list ($latitude, $longitude) = $this->getCoords($lot);
+        $query = \babld\avito\models\Avito::find()->where(['item_id' => $itemIds, 'model_name' => $modelName]);
 
-            $return .= '<Ad>';
-            $return .= '<Images>';
-            foreach ($lot->images as $image) {
+        foreach ($query->each() as $avito) {
+            /** @var \babld\avito\models\Avito $avito */
+
+            if (!$avito->is_active) {
+                continue;
+            }
+
+            $model = $class::findOne($avito->item_id);
+
+            $return .= "<Ad>\n";
+            $return .= "\t<Images>\n";
+            foreach ($model->images as $image) {
                 /** @var Image $image */
-                $return .= '<Image url="' . \yii\helpers\Url::to(['/images/store/' . $image->filePath]). '"/>';
+                $return .= "\t\t" . '<Image url="' . \yii\helpers\Url::to(['/images/store/' . $image->filePath], true). '"/>' . "\n";
             }
-            $return .= '</Images>';
-            $return .= '<VideoURL>https://rutube.ru/video/cbe29e13e0f638a5b9faece3b75b12d8/</VideoURL>';
-            $return .= '<Id>' . $this->getId($lot) . '</Id>';
-//            $return .= '<DateBegin>' . new \DateTime()->format('Y-m-d H:i') . '</DateBegin>'; // Это дата и время размещения объявления
-//            $return .= '<DateEnd></DateEnd>';
-//            $return .= '<ListingFee></ListingFee>';
-//            $return .= '<AdStatus></AdStatus>';
-//            $return .= '<AvitoId></AvitoId>'; // TODO: как то определять avitoId при последующих выгрузках и заполнять этот параметр
-            $return .= '<Category>Дома, дачи, коттеджи</Category>';
-            $return .= '<Price>' . $lot->price . '</Price>';
+            $return .= "\t" .'</Images>' . "\n";
+            $return .= "\t" .'<VideoURL>' . $avito->video_url . '</VideoURL>' . "\n";
+            $return .= "\t" .'<Id>' . $avito->internal_id . '</Id>' . "\n";
+            $return .= "\t" .'<AvitoId>' . $avito->external_id . '</AvitoId>' . "\n";
+            $return .= "\t" .'<Category>' . $avito->category . '</Category>' . "\n";
+            $return .= "\t" .'<Price>' . $avito->price . '</Price>' . "\n";
 
-            $return .= '<Description><![CDATA[' . strip_tags($lot->short_text) . ']]></Description>'; // FIXME: Уточнить откуда брать
-            $return .= '<ManagerName>' . $lot->manager_name . '</ManagerName>';
-            $return .= '<ContactPhone>' . $this->getPhone($lot) . '</ContactPhone>';
-            $return .= '<Address>' . $this->getAddress($lot) . '</Address>';
+            $return .= "\t" .'<Description><![CDATA[' . strip_tags($avito->description) . ']]></Description>' . "\n"; // FIXME: Уточнить откуда брать
+//            $return .= '<ManagerName>' . $avito->manager_name . '</ManagerName>' . "\n";
+//            $return .= '<ContactPhone>' . $this->getPhone($avito) . '</ContactPhone>' . "\n";
+            $return .= "\t" .'<Address>' . $this->getAddress($avito->address) . '</Address>' . "\n";
 
-            if ($latitude && $longitude) {
-                $return .= '<Latitude>' . $latitude . '</Latitude>';
-                $return .= '<Longitude>' . $longitude . '</Longitude>';
-            }
+//            if ($latitude && $longitude) {
+//                $return .= '<Latitude>' . $latitude . '</Latitude>' . "\n";
+//                $return .= '<Longitude>' . $longitude . '</Longitude>' . "\n";
+//            }
 
-            $return .= '<ContactMethod>По телефону</ContactMethod>';
-            $return .= '<InternetCalls>Нет</InternetCalls>';
-            $return .= '<CallsDevices></CallsDevices>';
-            $return .= '<OperationType>Продам</OperationType>';
-            $return .= '<SafeDemonstration>Не хочу</SafeDemonstration>';
+            $return .= "\t" .'<ContactMethod>По телефону</ContactMethod>' . "\n";
+            $return .= "\t" .'<InternetCalls>Нет</InternetCalls>' . "\n";
+//            $return .= '<CallsDevices></CallsDevices>' . "\n";
+            $return .= "\t" .'<OperationType>' . $avito->operation_type .'</OperationType>' . "\n";
+            $return .= "\t" .'<SafeDemonstration>Не хочу</SafeDemonstration>' . "\n";
 
-            $return .= '<LandAdditionally>';
-//            $return .= '<Option>Баня или сауна</Option>';
-//            $return .= '<Option>Бассейн</Option>';
-            $return .= '</LandAdditionally>'; // FIXME: завести доп параметр в админке
+            $return .= "\t" .'<LandAdditionally>' . "\n";
+//            $return .= '<Option>Баня или сауна</Option>' . "\n";
+//            $return .= '<Option>Бассейн</Option>' . "\n";
+            $return .= "\t" .'</LandAdditionally>' . "\n";
 
-            $return .= '<BathroomMulti>';
-            $return .= '<Option>В доме</Option>';
-//            $return .= '<Option>На улице</Option>';
-            $return .= '</BathroomMulti>'; // FIXME: завести доп параметр в админке
+            $return .= "\t" .'<BathroomMulti>' . "\n";
+            $return .= "\t\t" .'<Option>В доме</Option>' . "\n";
+//            $return .= '<Option>На улице</Option>' . "\n";
+            $return .= "\t" .'</BathroomMulti>' . "\n";
 
-            $return .= '<HouseAdditionally>';
-//            $return .= '<Option>Терраса или веранда</Option>';
-            $return .= '</HouseAdditionally>';
+//            $return .= '<HouseAdditionally>' . "\n";
+//            $return .= '<Option>Терраса или веранда</Option>' . "\n";
+//            $return .= '</HouseAdditionally>' . "\n";
 
-            $return .= '<Electricity>Есть</Electricity>';
-            $return .= '<GasSupply></GasSupply>';
-            $return .= '<Heating>' . $lot->heating . '</Heating>';
+            $return .= "\t" .'<Electricity>Есть</Electricity>' . "\n";
+            $return .= "\t" .'<GasSupply></GasSupply>' . "\n";
+//            $return .= '<Heating>' . $avito->heating . '</Heating>' . "\n";
 
-            if ($lot->heating) {
-                $return .= '<HeatingType>' . $this->heating_type . '</HeatingType>';
-            }
+//            if ($avito->heating) {
+//                $return .= '<HeatingType>' . $this->heating_type . '</HeatingType>' . "\n";
+//            }
 
-            $return .= '<WaterSupply>' . $lot->water_supply . '</WaterSupply>';
-            $return .= '<Sewerage>' . $lot->sewerage . '</Sewerage>';
-            $return .= '<TransportAccessibility></TransportAccessibility>';
-            $return .= '<Infrastructure></Infrastructure>';
-            $return .= '<ParkingType></ParkingType>';
-            $return .= '<Rooms></Rooms>';
-            $return .= '<BuiltYear></BuiltYear>';
-            $return .= '<LeaseMultimedia></LeaseMultimedia>';
-            $return .= '<PropertyRights>Собственник</PropertyRights>';
-            $return .= '<ObjectType></ObjectType>';
-            $return .= '<Floors></Floors>';
-            $return .= '<WallsType></WallsType>';
-            $return .= '<Square>' . $lot->sq_house . '</Square>';
-            $return .= '<LandArea>' . $lot->square . '</LandArea>';
-            $return .= '<LandStatus></LandStatus>';
-            $return .= '<SaleOptions></SaleOptions>'; // FIXME
-            $return .= '<Renovation></Renovation>';
-            $return .= '</Ad>';
+//            $return .= '<WaterSupply>' . $avito->water_supply . '</WaterSupply>' . "\n";
+//            $return .= '<Sewerage>' . $avito->sewerage . '</Sewerage>' . "\n";
+            $return .= "\t" .'<TransportAccessibility></TransportAccessibility>' . "\n";
+            $return .= "\t" .'<Infrastructure></Infrastructure>' . "\n";
+            $return .= "\t" .'<ParkingType></ParkingType>' . "\n";
+            $return .= "\t" .'<Rooms>' . $avito->rooms . '</Rooms>' . "\n";
+            $return .= "\t" .'<BuiltYear></BuiltYear>' . "\n";
+            $return .= "\t" .'<LeaseMultimedia></LeaseMultimedia>' . "\n";
+            $return .= "\t" .'<PropertyRights>' . $avito->property_rights . '</PropertyRights>' . "\n";
+            $return .= "\t" .'<ObjectType>' . $avito->object_type. '</ObjectType>' . "\n";
+            $return .= "\t" .'<Floors>' . $avito->floors . '</Floors>' . "\n";
+            $return .= "\t" .'<WallsType>' . $avito->walls_type . '</WallsType>' . "\n";
+            $return .= "\t" .'<Square>' . $avito->square . '</Square>' . "\n";
+//            $return .= '<LandArea>' . $avito->square . '</LandArea>' . "\n";
+            $return .= "\t" .'<LandStatus>' . $avito->land_status . '</LandStatus>' . "\n";
+            $return .= "\t" .'<SaleOptions></SaleOptions>' . "\n"; // FIXME
+            $return .= "\t" .'<Renovation>' . $avito->renovation . '</Renovation>' . "\n";
+            $return .= '</Ad>' . "\n\n";
         };
         return $return;
-    }
-
-    protected function getId($model)
-    {
-        return StringHelper::basename($model::class) . '_' . $model->id;
     }
 
     protected function getCoords($model): array
@@ -138,5 +141,16 @@ class Avito
     protected function getPhone($lot): string
     {
         return $lot->contact_phone;
+    }
+
+    public function saveXml($xml): bool
+    {
+        $file = Yii::getAlias('@webroot/upload/avito.xml');
+
+        $fp = fopen($file, 'c');
+        $success = fwrite($fp, $xml);
+        fclose($fp);
+
+        return $success;
     }
 }
