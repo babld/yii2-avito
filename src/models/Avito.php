@@ -22,12 +22,16 @@ use yii\db\ActiveRecord;
  * @property string $square
  * @property string $manager_name
  * @property string $phone
+ * @property string $land_area
  * @property string $built_year
  * @property string $contact_method
  * @property int $rooms
  * @property int $floors
  * @property int $land_status
  * @property int $renovation
+ * @property int $safe_demonstration
+ * @property int $transport_accessibility
+ * @property int $parking_type
  */
 
 class Avito extends ActiveRecord
@@ -147,7 +151,7 @@ class Avito extends ActiveRecord
                 'built_year'], 'string'],
             [['price'], 'number'],
             [['rooms', 'property_rights', 'object_type', 'walls_type', 'renovation', 'safe_demonstration',
-                'bathroom_multi', 'house_additionally', /*'house_services',*/ 'transport_accessibility'], 'integer'],
+                'bathroom_multi', 'house_additionally', /*'house_services',*/ 'transport_accessibility', 'parking_type'], 'integer'],
         ];
     }
 

@@ -45,44 +45,60 @@ class Avito
                 $return .= "\t\t" . '<Image url="' . Url::to(['/images/store/' . $image->filePath], true). '"/>' . "\n";
             }
             $return .= "\t" .'</Images>' . "\n";
-            $return .= "\t" .'<VideoURL>' . $avito->video_url . '</VideoURL>' . "\n";
-            $return .= "\t" .'<Id>' . $avito->internal_id . '</Id>' . "\n";
-            $return .= "\t" .'<AvitoId>' . $avito->external_id . '</AvitoId>' . "\n";
-            $return .= "\t" .'<Category>' . $avito->category . '</Category>' . "\n";
-            $return .= "\t" .'<Price>' . $avito->price . '</Price>' . "\n";
 
+            $return .= $this->getStringField('VideoURL', $avito->video_url);
+            $return .= $this->getStringField('Id', $avito->internal_id);
+            $return .= $this->getStringField('AvitoId', $avito->external_id);
+            $return .= $this->getStringField('Category', $avito->category);
+            $return .= $this->getStringField('Price', $avito->price);
             $return .= "\t" .'<Description><![CDATA[' . strip_tags($avito->description) . ']]></Description>' . "\n"; // FIXME: Уточнить откуда брать
-//            $return .= '<ManagerName>' . $avito->manager_name . '</ManagerName>' . "\n";
-//            $return .= '<ContactPhone>' . $this->getPhone($avito) . '</ContactPhone>' . "\n";
-            $return .= "\t" .'<Address>' . $this->getAddress($avito->address) . '</Address>' . "\n";
+            $return .= $this->getStringField('ManagerName', $avito->manager_name);
+            $return .= $this->getStringField('Address', $this->getAddress($avito->address));
+            $return .= $this->getArrayField('ContactMethod', $avito->contactMethods, $avito->contact_method);
+            $return .= $this->getArrayField('SafeDemonstration', $avito->safeDemonstrations, $avito->safe_demonstration);
+            $return .= $this->getStringField('InternetCalls', 'Нет');
+            $return .= $this->getStringField('OperationType', $avito->operation_type);
+            $return .= $this->getArrayField('PropertyRights', $avito->propertyRights, $avito->property_rights);
+            $return .= $this->getArrayField('ObjectType', $avito->objectType, $avito->object_type);
+            $return .= $this->getArrayField('Floors', $avito->floorValues, $avito->floors);
+            $return .= $this->getArrayField('WallsType', $avito->wallsType, $avito->walls_type);
+            $return .= $this->getStringField('Square', $avito->square);
+            $return .= $this->getStringField('LandArea', $avito->land_area);
+            $return .= $this->getStringField('BuiltYear', $avito->built_year);
+            $return .= $this->getArrayField('LandStatus', $avito->landStatus, $avito->land_status);
+            $return .= $this->getArrayField('Renovation', $avito->renovationValues, $avito->renovation);
+            $return .= $this->getArrayField('TransportAccessibility', $avito->transportAccessibility, $avito->transport_accessibility);
+            $return .= $this->getArrayField('ParkingType', $avito->parkingType, $avito->parking_type);
+            $return .= $this->getArrayField('Rooms', $avito->roomValues, $avito->rooms);
 
+
+
+//            $return .= "\t" .'<Infrastructure></Infrastructure>' . "\n";
+//            $return .= "\t" .'<Electricity>Есть</Electricity>' . "\n";
+//            $return .= "\t" .'<GasSupply></GasSupply>' . "\n";
+//            $return .= "\t" .'<LandAdditionally>' . "\n";
+//            $return .= '<Option>Баня или сауна</Option>' . "\n";
+//            $return .= '<Option>Бассейн</Option>' . "\n";
+//            $return .= "\t" .'</LandAdditionally>' . "\n";
+//            $return .= "\t" .'<BathroomMulti>' . "\n";
+//            $return .= "\t\t" .'<Option>В доме</Option>' . "\n";
+//            $return .= '<Option>На улице</Option>' . "\n";
+//            $return .= "\t" .'</BathroomMulti>' . "\n";
+//            $return .= '<CallsDevices></CallsDevices>' . "\n";
+//            $return .= '<HouseAdditionally>' . "\n";
+//            $return .= '<Option>Терраса или веранда</Option>' . "\n";
+//            $return .= '</HouseAdditionally>' . "\n";
 //            if ($latitude && $longitude) {
 //                $return .= '<Latitude>' . $latitude . '</Latitude>' . "\n";
 //                $return .= '<Longitude>' . $longitude . '</Longitude>' . "\n";
 //            }
 
-            $return .= "\t" .'<ContactMethod>По телефону</ContactMethod>' . "\n";
-            $return .= "\t" .'<InternetCalls>Нет</InternetCalls>' . "\n";
-//            $return .= '<CallsDevices></CallsDevices>' . "\n";
-            $return .= "\t" .'<OperationType>' . $avito->operation_type .'</OperationType>' . "\n";
-            $return .= "\t" .'<SafeDemonstration>Не хочу</SafeDemonstration>' . "\n";
+//            $return .= "\t" .'<LeaseMultimedia></LeaseMultimedia>' . "\n";
 
-            $return .= "\t" .'<LandAdditionally>' . "\n";
-//            $return .= '<Option>Баня или сауна</Option>' . "\n";
-//            $return .= '<Option>Бассейн</Option>' . "\n";
-            $return .= "\t" .'</LandAdditionally>' . "\n";
+//            $return .= '<LandArea>' . $avito->square . '</LandArea>' . "\n";
 
-            $return .= "\t" .'<BathroomMulti>' . "\n";
-            $return .= "\t\t" .'<Option>В доме</Option>' . "\n";
-//            $return .= '<Option>На улице</Option>' . "\n";
-            $return .= "\t" .'</BathroomMulti>' . "\n";
-
-//            $return .= '<HouseAdditionally>' . "\n";
-//            $return .= '<Option>Терраса или веранда</Option>' . "\n";
-//            $return .= '</HouseAdditionally>' . "\n";
-
-            $return .= "\t" .'<Electricity>Есть</Electricity>' . "\n";
-            $return .= "\t" .'<GasSupply></GasSupply>' . "\n";
+//            $return .= "\t" .'<SaleOptions></SaleOptions>' . "\n"; // FIXME
+//            $return .= '<ContactPhone>' . $this->getPhone($avito) . '</ContactPhone>' . "\n";
 //            $return .= '<Heating>' . $avito->heating . '</Heating>' . "\n";
 
 //            if ($avito->heating) {
@@ -91,21 +107,7 @@ class Avito
 
 //            $return .= '<WaterSupply>' . $avito->water_supply . '</WaterSupply>' . "\n";
 //            $return .= '<Sewerage>' . $avito->sewerage . '</Sewerage>' . "\n";
-            $return .= "\t" .'<TransportAccessibility></TransportAccessibility>' . "\n";
-            $return .= "\t" .'<Infrastructure></Infrastructure>' . "\n";
-            $return .= "\t" .'<ParkingType></ParkingType>' . "\n";
-            $return .= "\t" .'<Rooms>' . $avito->rooms . '</Rooms>' . "\n";
-            $return .= "\t" .'<BuiltYear></BuiltYear>' . "\n";
-            $return .= "\t" .'<LeaseMultimedia></LeaseMultimedia>' . "\n";
-            $return .= "\t" .'<PropertyRights>' . $avito->property_rights . '</PropertyRights>' . "\n";
-            $return .= "\t" .'<ObjectType>' . $avito->object_type. '</ObjectType>' . "\n";
-            $return .= "\t" .'<Floors>' . $avito->floors . '</Floors>' . "\n";
-            $return .= "\t" .'<WallsType>' . $avito->walls_type . '</WallsType>' . "\n";
-            $return .= "\t" .'<Square>' . $avito->square . '</Square>' . "\n";
-//            $return .= '<LandArea>' . $avito->square . '</LandArea>' . "\n";
-            $return .= "\t" .'<LandStatus>' . $avito->land_status . '</LandStatus>' . "\n";
-            $return .= "\t" .'<SaleOptions></SaleOptions>' . "\n"; // FIXME
-            $return .= "\t" .'<Renovation>' . $avito->renovation . '</Renovation>' . "\n";
+
             $return .= '</Ad>' . "\n\n";
         };
         return $return;
@@ -148,10 +150,28 @@ class Avito
     {
         $file = Yii::getAlias('@webroot/upload/avito.xml');
 
-        $fp = fopen($file, 'c');
+        $fp = fopen($file, 'w');
         $success = fwrite($fp, $xml);
         fclose($fp);
 
         return $success;
+    }
+
+    public function getStringField($name, $value)
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        return "\t<$name>$value</$name>\n";
+    }
+
+    public function getArrayField($name, $values, $value)
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        return "\t<$name>" . ArrayHelper::getValue($values, $value) . "</$name>\n";
     }
 }
