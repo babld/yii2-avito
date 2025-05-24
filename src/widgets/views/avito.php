@@ -31,6 +31,7 @@ use mihaildev\elfinder\ElFinder;
                 'clientOptions' => ElFinder::ckeditorOptions('elfinder', ['language' => 'ru']),
             ]) ?>
 
+            <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true]) ?>
             <?= $form->field($avitoModel, 'video_url')->textInput(['maxlength' => true]) ?>
             <?= $form->field($avitoModel, 'external_id')->textInput(['maxlength' => true]) ?>
             <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true]) ?>
@@ -54,7 +55,7 @@ use mihaildev\elfinder\ElFinder;
             <?php // = $form->field($avitoModel, 'house_services')->dropDownList($avitoModel->houseServices, ['prompt' => 'Выберите']) ?>
             <?= $form->field($avitoModel, 'transport_accessibility')->dropDownList($avitoModel->transportAccessibility) ?>
             <?= $form->field($avitoModel, 'parking_type')->dropDownList($avitoModel->parkingType) ?>
-            <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($avitoModel, 'electricity')->dropDownList($avitoModel->electricityValues) ?>
         </div>
 
         <?= Html::error($model, 'description') ?>

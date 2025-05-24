@@ -47,6 +47,7 @@ class m250501_113319_avito extends Migration
             'parking_type' => $this->integer(),
             'transport_accessibility' => $this->integer(),
             'built_year' => $this->string(),
+            'electricity' => $this->integer(),
         ]);
     }
 

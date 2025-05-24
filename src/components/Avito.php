@@ -70,11 +70,11 @@ class Avito
             $return .= $this->getArrayField('TransportAccessibility', $avito->transportAccessibility, $avito->transport_accessibility);
             $return .= $this->getArrayField('ParkingType', $avito->parkingType, $avito->parking_type);
             $return .= $this->getArrayField('Rooms', $avito->roomValues, $avito->rooms);
+            $return .= $this->getArrayField('Electricity', $avito->electricityValues, $avito->electricity);
 
 
 
 //            $return .= "\t" .'<Infrastructure></Infrastructure>' . "\n";
-//            $return .= "\t" .'<Electricity>Есть</Electricity>' . "\n";
 //            $return .= "\t" .'<GasSupply></GasSupply>' . "\n";
 //            $return .= "\t" .'<LandAdditionally>' . "\n";
 //            $return .= '<Option>Баня или сауна</Option>' . "\n";

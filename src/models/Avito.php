@@ -32,6 +32,7 @@ use yii\db\ActiveRecord;
  * @property int $safe_demonstration
  * @property int $transport_accessibility
  * @property int $parking_type
+ * @property int $electricity
  */
 
 class Avito extends ActiveRecord
@@ -140,6 +141,11 @@ class Avito extends ActiveRecord
         3 => 'Нет',
     ];
 
+    public array $electricityValues = [
+        1 => 'Есть',
+        2 => 'Нет',
+    ];
+
     public function rules()
     {
         return [
@@ -151,7 +157,8 @@ class Avito extends ActiveRecord
                 'built_year'], 'string'],
             [['price'], 'number'],
             [['rooms', 'property_rights', 'object_type', 'walls_type', 'renovation', 'safe_demonstration',
-                'bathroom_multi', 'house_additionally', /*'house_services',*/ 'transport_accessibility', 'parking_type'], 'integer'],
+                'bathroom_multi', 'house_additionally', /*'house_services',*/ 'transport_accessibility', 'parking_type',
+                'electricity'], 'integer'],
         ];
     }
 
