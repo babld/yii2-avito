@@ -39,7 +39,7 @@ class Avito
             $return .= "\t<Images>\n";
             foreach ($model->images as $image) {
                 /** @var Image $image */
-                $return .= "\t\t" . '<Image url="' . \yii\helpers\Url::to([$image->filePath], true). '"/>' . "\n";
+                $return .= "\t\t" . '<Image url="' . \yii\helpers\Url::to(['/images/' . $image->filePath], true). '"/>' . "\n";
             }
             $return .= "\t" .'</Images>' . "\n";
             $return .= "\t" .'<VideoURL>' . $avito->video_url . '</VideoURL>' . "\n";
