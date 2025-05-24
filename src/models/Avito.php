@@ -147,7 +147,7 @@ class Avito extends ActiveRecord
                 'built_year'], 'string'],
             [['price'], 'number'],
             [['rooms', 'property_rights', 'object_type', 'walls_type', 'renovation', 'safe_demonstration',
-                'bathroom_multi', 'house_additionally', 'house_services', 'transport_accessibility'], 'integer'],
+                'bathroom_multi', 'house_additionally', /*'house_services'*/, 'transport_accessibility'], 'integer'],
         ];
     }
 

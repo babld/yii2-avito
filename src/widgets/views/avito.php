@@ -51,7 +51,7 @@ use mihaildev\elfinder\ElFinder;
             <?= $form->field($avitoModel, 'land_additionally')->dropDownList($avitoModel->landAdditionally, ['prompt' => 'Выберите']) ?>
             <?= $form->field($avitoModel, 'bathroom_multi')->dropDownList($avitoModel->bathroomMulti) ?>
             <?= $form->field($avitoModel, 'house_additionally')->dropDownList($avitoModel->houseAdditionally) ?>
-            <?= $form->field($avitoModel, 'house_services')->dropDownList($avitoModel->houseServices, ['prompt' => 'Выберите']) ?>
+            <?php // = $form->field($avitoModel, 'house_services')->dropDownList($avitoModel->houseServices, ['prompt' => 'Выберите']) ?>
             <?= $form->field($avitoModel, 'transport_accessibility')->dropDownList($avitoModel->transportAccessibility) ?>
             <?= $form->field($avitoModel, 'parking_type')->dropDownList($avitoModel->parkingType) ?>
             <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true]) ?>
