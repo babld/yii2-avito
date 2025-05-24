@@ -2,7 +2,6 @@
 
 namespace babld\avito\components;
 
-use common\models\Lots;
 use dvizh\gallery\models\Image;
 use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
@@ -40,7 +39,7 @@ class Avito
             $return .= "\t<Images>\n";
             foreach ($model->images as $image) {
                 /** @var Image $image */
-                $return .= "\t\t" . '<Image url="' . \yii\helpers\Url::to(['/images/store/' . $image->filePath], true). '"/>' . "\n";
+                $return .= "\t\t" . '<Image url="' . \yii\helpers\Url::to([$image->filePath], true). '"/>' . "\n";
             }
             $return .= "\t" .'</Images>' . "\n";
             $return .= "\t" .'<VideoURL>' . $avito->video_url . '</VideoURL>' . "\n";
