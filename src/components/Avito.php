@@ -130,10 +130,9 @@ class Avito
         return $coords;
     }
 
-    protected function getAddress(Lots $model): string
+    protected function getAddress(string $suffix): string
     {
         $base = 'Ленинградская область, Приозерский район, Громовское сельское поселение, посёлок Портовое, ';
-        $suffix = $model->address;
 
         return $base . $suffix;
     }
