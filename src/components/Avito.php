@@ -17,6 +17,8 @@ class Avito
 
         $xml .= $this->generateAds($class, $itemIds);
 
+        $xml .= '</Ads>';
+
         return $xml;
     }
 
