@@ -36,7 +36,7 @@ use mihaildev\elfinder\ElFinder;
             <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true]) ?>
             <?= $form->field($avitoModel, 'price')->textInput(['maxlength' => true]) ?>
             <?= $form->field($avitoModel, 'rooms')->dropDownList($avitoModel->roomValues, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'property_rights')->dropDownList($avitoModel->propertyRights, ['prompt' => 'Выберите']) ?>
+            <?= $form->field($avitoModel, 'property_rights')->dropDownList($avitoModel->propertyRights) ?>
             <?= $form->field($avitoModel, 'object_type')->dropDownList($avitoModel->objectType, ['prompt' => 'Выберите']) ?>
             <?= $form->field($avitoModel, 'floors')->dropDownList($avitoModel->floorValues, ['prompt' => 'Выберите']) ?>
             <?= $form->field($avitoModel, 'walls_type')->dropDownList($avitoModel->wallsType, ['prompt' => 'Выберите']) ?>
