@@ -154,8 +154,9 @@ class Avito extends ActiveRecord
                 'property_rights', 'object_type', 'floors', 'renovation', 'land_status', 'land_area',
                 'walls_type', 'square'], 'required'],
             [['is_active'], 'boolean'],
-            [['internal_id', 'video_url', 'external_id', 'category', 'address', 'manager_name', 'phone',
-                'built_year'], 'string'],
+            [['internal_id', 'external_id', 'category', 'address', 'manager_name', 'phone',
+                'built_year', 'contact_method'], 'string'],
+            [['video_url'], 'url'],
             [['description'], 'string', 'max' => 7500],
             [['price'], 'number'],
             [['rooms', 'property_rights', 'object_type', 'walls_type', 'renovation', 'safe_demonstration',
@@ -184,6 +185,14 @@ class Avito extends ActiveRecord
             'renovation' => 'Ремонт',
             'built_year' => 'Год постройки -  целое число',
             'manager_name' => 'Имя менеджера, контактного лица компании по данному объявлению — строка не более 40 символов',
+            'phone' => 'Телефон',
+            'contact_method' => 'Способ связи',
+            'safe_demonstration' => 'Онлайн показ',
+            'bathroom_multi' => 'Санузел',
+            'house_additionally' => 'Дополнительно (в доме)',
+            'transport_accessibility' => 'Транспортная доступность',
+            'parking_type' => 'Тип парковки',
+            'electricity' => 'Электричество',
         ];
     }
 }
