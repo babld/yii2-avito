@@ -25,37 +25,92 @@ use mihaildev\elfinder\ElFinder;
         <?= $form->field($avitoModel, 'is_active')->checkbox() ?>
 
         <div class="avito-dropdown <?= $avitoModel->is_active ? '' : 'hide' ?>">
+            <h5>Обязательные поля</h5>
             <?= $form->field($avitoModel, 'description')->textInput(['maxlength' => true])->widget(CKEditorWidget::class, [
                 'options' => ['rows' => 6],
                 'preset' => CKEditorPresets::FULL,
                 'clientOptions' => ElFinder::ckeditorOptions('elfinder', ['language' => 'ru']),
             ]) ?>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'price')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'square')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'land_area')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'object_type')->dropDownList($avitoModel->objectType) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'rooms')->dropDownList($avitoModel->roomValues, ['prompt' => 'Выберите']) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'property_rights')->dropDownList($avitoModel->propertyRights) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'floors')->dropDownList($avitoModel->floorValues, ['prompt' => 'Выберите']) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'walls_type')->dropDownList($avitoModel->wallsType, ['prompt' => 'Выберите']) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'land_status')->dropDownList($avitoModel->landStatus, ['prompt' => 'Выберите']) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'renovation')->dropDownList($avitoModel->renovationValues, ['prompt' => 'Выберите']) ?>
+                </div>
+            </div>
 
-            <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'video_url')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'external_id')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'price')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'rooms')->dropDownList($avitoModel->roomValues, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'property_rights')->dropDownList($avitoModel->propertyRights) ?>
-            <?= $form->field($avitoModel, 'object_type')->dropDownList($avitoModel->objectType, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'floors')->dropDownList($avitoModel->floorValues, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'walls_type')->dropDownList($avitoModel->wallsType, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'square')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'land_area')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'manager_name')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($avitoModel, 'land_status')->dropDownList($avitoModel->landStatus, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'renovation')->dropDownList($avitoModel->renovationValues, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'contact_method')->dropDownList($avitoModel->contactMethods) ?>
-            <?= $form->field($avitoModel, 'safe_demonstration')->dropDownList($avitoModel->safeDemonstrations) ?>
-            <?= $form->field($avitoModel, 'land_additionally')->dropDownList($avitoModel->landAdditionally, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'bathroom_multi')->dropDownList($avitoModel->bathroomMulti) ?>
-            <?= $form->field($avitoModel, 'house_additionally')->dropDownList($avitoModel->houseAdditionally) ?>
+            <h4>Необязательные поля</h4>
+            <div class="row">
+                <div class="col-xs-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-xs-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'video_url')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'external_id')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'manager_name')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'contact_method')->dropDownList($avitoModel->contactMethods) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'safe_demonstration')->dropDownList($avitoModel->safeDemonstrations) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'land_additionally')->dropDownList($avitoModel->landAdditionally, ['prompt' => 'Выберите']) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'bathroom_multi')->dropDownList($avitoModel->bathroomMulti) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'house_additionally')->dropDownList($avitoModel->houseAdditionally) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'transport_accessibility')->dropDownList($avitoModel->transportAccessibility) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'parking_type')->dropDownList($avitoModel->parkingType) ?>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'electricity')->dropDownList($avitoModel->electricityValues) ?>
+                </div>
+            </div>
+            
             <?php // = $form->field($avitoModel, 'house_services')->dropDownList($avitoModel->houseServices, ['prompt' => 'Выберите']) ?>
-            <?= $form->field($avitoModel, 'transport_accessibility')->dropDownList($avitoModel->transportAccessibility) ?>
-            <?= $form->field($avitoModel, 'parking_type')->dropDownList($avitoModel->parkingType) ?>
-            <?= $form->field($avitoModel, 'electricity')->dropDownList($avitoModel->electricityValues) ?>
         </div>
 
         <?= Html::error($model, 'description') ?>

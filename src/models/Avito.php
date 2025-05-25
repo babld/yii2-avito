@@ -33,6 +33,7 @@ use yii\db\ActiveRecord;
  * @property int $transport_accessibility
  * @property int $parking_type
  * @property int $electricity
+ * @property int $land_additionally
  */
 
 class Avito extends ActiveRecord
@@ -57,9 +58,9 @@ class Avito extends ActiveRecord
     ];
 
     public array $objectType = [
+        3 => 'Коттедж',
         1 => 'Дом',
         2 => 'Дача',
-        3 => 'Коттедж',
         4 => 'Таунхаус'
     ];
 
@@ -159,14 +160,14 @@ class Avito extends ActiveRecord
             [['price'], 'number'],
             [['rooms', 'property_rights', 'object_type', 'walls_type', 'renovation', 'safe_demonstration',
                 'bathroom_multi', 'house_additionally', /*'house_services',*/ 'transport_accessibility', 'parking_type',
-                'electricity'], 'integer'],
+                'electricity', 'land_additionally'], 'integer'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'external_id' => 'Avito ID',
+            'external_id' => 'Avito ID (Номер объявления на Авито)',
             'address' => 'Адрес',
             'description' => 'Описание',
             'price' => 'Цена',
@@ -177,6 +178,12 @@ class Avito extends ActiveRecord
             'walls_type' => 'Материал стен',
             'square' => 'Площадь',
             'land_area' => 'Площадь участка, в сотках — десятичное число',
+            'land_additionally' => 'Дополнительно (на участке)',
+            'is_active' => 'Активировать экспорт на авито',
+            'land_status' => 'Статус участка',
+            'renovation' => 'Ремонт',
+            'built_year' => 'Год постройки -  целое число',
+            'manager_name' => 'Имя менеджера, контактного лица компании по данному объявлению — строка не более 40 символов',
         ];
     }
 }
