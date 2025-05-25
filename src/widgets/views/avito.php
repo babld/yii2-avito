@@ -37,16 +37,16 @@ use mihaildev\elfinder\ElFinder;
             ]) ?>
             <div class="row">
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true, 'placeholder' => 'ул. Солнечная, уч.15']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'price')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'price')->textInput(['maxlength' => true, 'placeholder' => '25000000']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'square')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'square')->textInput(['maxlength' => true, 'placeholder' => '5000']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'land_area')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'land_area')->textInput(['maxlength' => true, 'placeholder' => '250']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'object_type')->dropDownList($avitoModel->objectType) ?>
@@ -74,19 +74,19 @@ use mihaildev\elfinder\ElFinder;
             <h4>Необязательные поля</h4>
             <div class="row">
                 <div class="col-xs-6 col-xs-12">
-                    <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'built_year')->textInput(['maxlength' => true, 'placeholder' => '2025']) ?>
                 </div>
                 <div class="col-xs-6 col-xs-12">
-                    <?= $form->field($avitoModel, 'video_url')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'video_url')->textInput(['maxlength' => true, 'placeholder' => 'https://rutube.ru/video/cbe29e13e0f638a5b9faece3b75b12d8']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'external_id')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'external_id')->textInput(['maxlength' => true, 'placeholder' => '7378930804']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'manager_name')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'manager_name')->textInput(['maxlength' => true, 'placeholder' => 'Андрей']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true, 'placeholder' => '+79052070490']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'contact_method')->dropDownList($avitoModel->contactMethods) ?>
