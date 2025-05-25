@@ -71,6 +71,7 @@ class Avito
             $return .= $this->getArrayField('ParkingType', $avito->parkingType, $avito->parking_type);
             $return .= $this->getArrayField('Rooms', $avito->roomValues, $avito->rooms);
             $return .= $this->getArrayField('Electricity', $avito->electricityValues, $avito->electricity);
+            $return .= $this->getArrayField('HouseAdditionally', $avito->houseAdditionally, $avito->house_additionally);
 
 
 
@@ -168,7 +169,7 @@ class Avito
 
     public function getArrayField($name, $values, $value)
     {
-        if ($value === null) {
+        if (!$value) {
             return '';
         }
 

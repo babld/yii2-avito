@@ -54,6 +54,7 @@ class AvitoFields extends Behavior
         $model->internal_id = $this->getId();
         $model->category = 'Дома, дачи, коттеджи';
         $model->operation_type = 'Продам';
+        $model->house_additionally = Avito::HOUSE_ADDITIONALLY_TERRACE;
     }
 
     public function findModel(): ?Avito

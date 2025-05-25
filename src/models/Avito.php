@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  * @property string $built_year
  * @property string $contact_method
  * @property int $rooms
+ * @property int $house_additionally //FIXME: вариант выбора один - переделать на стринг
  * @property int $floors
  * @property int $land_status
  * @property int $renovation
@@ -114,8 +115,10 @@ class Avito extends ActiveRecord
         2 => 'Бассейн',
     ];
 
+    const HOUSE_ADDITIONALLY_TERRACE = 1;
+
     public array $houseAdditionally = [
-        1 => 'Терраса или веранда',
+        self::HOUSE_ADDITIONALLY_TERRACE => 'Терраса или веранда',
     ];
 
     public array $bathroomMulti = [

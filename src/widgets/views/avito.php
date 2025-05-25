@@ -101,9 +101,6 @@ use mihaildev\elfinder\ElFinder;
                     <?= $form->field($avitoModel, 'bathroom_multi')->dropDownList($avitoModel->bathroomMulti) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'house_additionally')->dropDownList($avitoModel->houseAdditionally) ?>
-                </div>
-                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'transport_accessibility')->dropDownList($avitoModel->transportAccessibility) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
