@@ -61,10 +61,10 @@ use mihaildev\elfinder\ElFinder;
                     <?= $form->field($avitoModel, 'floors')->dropDownList($avitoModel->floorValues, ['prompt' => 'Выберите']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'walls_type')->dropDownList($avitoModel->wallsType, ['prompt' => 'Выберите']) ?>
+                    <?= $form->field($avitoModel, 'walls_type')->dropDownList($avitoModel->wallsType) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'land_status')->dropDownList($avitoModel->landStatus, ['prompt' => 'Выберите']) ?>
+                    <?= $form->field($avitoModel, 'land_status')->dropDownList($avitoModel->landStatus) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'renovation')->dropDownList($avitoModel->renovationValues, ['prompt' => 'Выберите']) ?>
@@ -86,7 +86,7 @@ use mihaildev\elfinder\ElFinder;
                     <?= $form->field($avitoModel, 'manager_name')->textInput(['maxlength' => true, 'placeholder' => 'Андрей']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
-                    <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true, 'placeholder' => '+79052070490']) ?>
+                    <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true, 'placeholder' => '+79052070490', 'value' => '88126444141']) ?>
                 </div>
                 <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'contact_method')->dropDownList($avitoModel->contactMethods) ?>

@@ -72,9 +72,12 @@ class Avito extends ActiveRecord
         4 => '4 и более',
     ];
 
+    const int WALL_TYPE_BRICK = 1;
+    const int WALL_TYPE_TIMBER = 2;
+
     public array $wallsType = [
-        1 => 'Кирпич',
-        2 => 'Брус',
+        self::WALL_TYPE_TIMBER => 'Брус',
+        self::WALL_TYPE_BRICK => 'Кирпич',
         3 => 'Бревно',
         4 => 'Газоблоки',
         5 => 'Металл',
@@ -139,10 +142,14 @@ class Avito extends ActiveRecord
         3 => 'Железнодорожная станция',
     ];
 
+    const int PARKING_TYPE_GARAGE = 1;
+    const int PARKING_TYPE_SPACE = 2;
+    const int PARKING_TYPE_NO = 3;
+
     public array $parkingType = [
-        1 => 'Гараж',
-        2 => 'Парковочное место',
-        3 => 'Нет',
+        self::PARKING_TYPE_SPACE => 'Парковочное место',
+        self::PARKING_TYPE_GARAGE => 'Гараж',
+        self::PARKING_TYPE_NO => 'Нет',
     ];
 
     public array $electricityValues = [
