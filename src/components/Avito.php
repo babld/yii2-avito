@@ -51,7 +51,7 @@ class Avito
             $return .= $this->getStringField('AvitoId', $avito->external_id);
             $return .= $this->getStringField('Category', $avito->category);
             $return .= $this->getStringField('Price', $avito->price);
-            $return .= "\t" .'<Description><![CDATA[' . strip_tags($avito->description) . ']]></Description>' . "\n"; // FIXME: Уточнить откуда брать
+            $return .= "\t" .'<Description><![CDATA[' . $avito->description . ']]></Description>' . "\n"; // FIXME: Уточнить откуда брать
             $return .= $this->getStringField('ManagerName', $avito->manager_name);
             $return .= $this->getStringField('Address', $this->getAddress($avito->address));
             $return .= $this->getArrayField('ContactMethod', $avito->contactMethods, $avito->contact_method);
