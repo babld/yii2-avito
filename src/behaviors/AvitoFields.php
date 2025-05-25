@@ -12,7 +12,7 @@ use yii\helpers\StringHelper;
 
 class AvitoFields extends Behavior
 {
-    public bool $isExport = false;
+    public bool $isExportToAvito = false;
 
     public function init()
     {
