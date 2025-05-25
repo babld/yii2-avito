@@ -17,7 +17,11 @@ use mihaildev\elfinder\ElFinder;
  */
 
 ?>
-
+<style>
+    .avito-height {
+        height: 100px;
+    }
+</style>
 <div class="panel panel-default">
     <div class="panel-body">
         <h4>Avito</h4>
@@ -32,37 +36,37 @@ use mihaildev\elfinder\ElFinder;
                 'clientOptions' => ElFinder::ckeditorOptions('elfinder', ['language' => 'ru']),
             ]) ?>
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'address')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'price')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'square')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'land_area')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'object_type')->dropDownList($avitoModel->objectType) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'rooms')->dropDownList($avitoModel->roomValues, ['prompt' => 'Выберите']) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'property_rights')->dropDownList($avitoModel->propertyRights) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'floors')->dropDownList($avitoModel->floorValues, ['prompt' => 'Выберите']) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'walls_type')->dropDownList($avitoModel->wallsType, ['prompt' => 'Выберите']) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'land_status')->dropDownList($avitoModel->landStatus, ['prompt' => 'Выберите']) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'renovation')->dropDownList($avitoModel->renovationValues, ['prompt' => 'Выберите']) ?>
                 </div>
             </div>
@@ -75,37 +79,37 @@ use mihaildev\elfinder\ElFinder;
                 <div class="col-xs-6 col-xs-12">
                     <?= $form->field($avitoModel, 'video_url')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'external_id')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'manager_name')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'phone')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'contact_method')->dropDownList($avitoModel->contactMethods) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'safe_demonstration')->dropDownList($avitoModel->safeDemonstrations) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'land_additionally')->dropDownList($avitoModel->landAdditionally, ['prompt' => 'Выберите']) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'bathroom_multi')->dropDownList($avitoModel->bathroomMulti) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'house_additionally')->dropDownList($avitoModel->houseAdditionally) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'transport_accessibility')->dropDownList($avitoModel->transportAccessibility) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'parking_type')->dropDownList($avitoModel->parkingType) ?>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'electricity')->dropDownList($avitoModel->electricityValues) ?>
                 </div>
             </div>
