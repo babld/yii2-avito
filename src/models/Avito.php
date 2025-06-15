@@ -162,7 +162,12 @@ class Avito extends ActiveRecord
         return [
             [['description', 'internal_id', 'category', 'address', 'price', 'operation_type', 'rooms',
                 'property_rights', 'object_type', 'floors', 'renovation', 'land_status', 'land_area',
-                'walls_type', 'square'], 'required'],
+                'walls_type', 'square'], 'required', 'when' => function () {
+                    return $this->is_active;
+                }, 'whenClient' => "function (attribute, value) {
+                        return $('.field-avito-is_active input:checked').length;
+                    }"
+            ],
             [['is_active'], 'boolean'],
             [['internal_id', 'external_id', 'category', 'address', 'manager_name', 'phone',
                 'built_year', 'contact_method'], 'string'],
