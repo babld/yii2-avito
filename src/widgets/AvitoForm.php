@@ -12,6 +12,7 @@ class AvitoForm extends \yii\base\Widget
     public $modelName = null;
     public $form = null;
     public $title = 'Avito';
+    public array $map = [];
 
     public function init()
     {
@@ -39,6 +40,12 @@ class AvitoForm extends \yii\base\Widget
                 foreach ($errors as $error) {
                     $avitoModel->addError($errorAttr, $error);
                 }
+            }
+        }
+
+        foreach ($this->map as $key => $value) {
+            if ($this->hasProperty($key)) {
+                $avitoModel->$key = $value;
             }
         }
 

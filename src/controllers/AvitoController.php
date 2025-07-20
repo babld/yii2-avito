@@ -7,11 +7,6 @@ use yii\web\Controller;
 
 class AvitoController extends Controller
 {
-    public function actionIndex()
-    {
-        return $this->render('index', []);
-    }
-
     public function actionExport(string $class, array $itemIds)
     {
         $avitoComponent = new Avito();

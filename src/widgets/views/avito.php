@@ -109,6 +109,9 @@ use mihaildev\elfinder\ElFinder;
                 <div class="col-sm-6 col-xs-12 avito-height">
                     <?= $form->field($avitoModel, 'electricity')->dropDownList($avitoModel->electricityValues) ?>
                 </div>
+                <div class="col-xs-6 col-xs-12">
+                    <?= $form->field($avitoModel, 'listing_fee')->dropDownList($avitoModel->listingFees) ?>
+                </div>
             </div>
             
             <?php // = $form->field($avitoModel, 'house_services')->dropDownList($avitoModel->houseServices, ['prompt' => 'Выберите']) ?>

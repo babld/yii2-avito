@@ -35,6 +35,7 @@ use yii\db\ActiveRecord;
  * @property int $parking_type
  * @property int $electricity
  * @property int $land_additionally
+ * @property string $listing_fee
  */
 
 class Avito extends ActiveRecord
@@ -70,6 +71,12 @@ class Avito extends ActiveRecord
         2 => 2,
         3 => 3,
         4 => '4 и более',
+    ];
+
+    public array $listingFees = [
+        'Package' => 'Package — объявление будет опубликовано, только если есть размещение в подходящем пакете',
+        'PackageSingle' => 'PackageSingle если есть подходящий пакет, размещение спишется из него. Когда такого пакета нет, оплата разового размещения списывается из кошелька (если в нём достаточно денег)',
+        'Single' => 'Single — будет оплачено только разовое размещение, если в кошельке хватает денег.',
     ];
 
     const int WALL_TYPE_BRICK = 1;
@@ -170,7 +177,7 @@ class Avito extends ActiveRecord
             ],
             [['is_active'], 'boolean'],
             [['internal_id', 'external_id', 'category', 'address', 'manager_name', 'phone',
-                'built_year', 'contact_method'], 'string'],
+                'built_year', 'contact_method', 'listing_fee'], 'string'],
             [['video_url'], 'url'],
             [['description'], 'string', 'max' => 7500],
             [['price'], 'number'],
@@ -208,6 +215,7 @@ class Avito extends ActiveRecord
             'transport_accessibility' => 'Транспортная доступность',
             'parking_type' => 'Тип парковки',
             'electricity' => 'Электричество',
+            'listing_fee' => 'Способ оплаты размещения'
         ];
     }
 }

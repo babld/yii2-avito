@@ -10,7 +10,6 @@ use yii\helpers\Url;
 
 class Avito
 {
-
     public function generateXml($class, $itemIds): string
     {
         $xml = '<Ads formatVersion="3" target="Avito.ru">' . "\n";
@@ -65,6 +64,7 @@ class Avito
             $return .= $this->getStringField('Square', $avito->square);
             $return .= $this->getStringField('LandArea', $avito->land_area);
             $return .= $this->getStringField('BuiltYear', $avito->built_year);
+            $return .= $this->getArrayField('ListingFee ', $avito->listingFees, $avito->listing_fee);
             $return .= $this->getArrayField('LandStatus', $avito->landStatus, $avito->land_status);
             $return .= $this->getArrayField('Renovation', $avito->renovationValues, $avito->renovation);
             $return .= $this->getArrayField('TransportAccessibility', $avito->transportAccessibility, $avito->transport_accessibility);
@@ -73,66 +73,9 @@ class Avito
             $return .= $this->getArrayField('Electricity', $avito->electricityValues, $avito->electricity);
             $return .= $this->getArrayField('HouseAdditionally', $avito->houseAdditionally, $avito->house_additionally);
 
-
-
-//            $return .= "\t" .'<Infrastructure></Infrastructure>' . "\n";
-//            $return .= "\t" .'<GasSupply></GasSupply>' . "\n";
-//            $return .= "\t" .'<LandAdditionally>' . "\n";
-//            $return .= '<Option>Баня или сауна</Option>' . "\n";
-//            $return .= '<Option>Бассейн</Option>' . "\n";
-//            $return .= "\t" .'</LandAdditionally>' . "\n";
-//            $return .= "\t" .'<BathroomMulti>' . "\n";
-//            $return .= "\t\t" .'<Option>В доме</Option>' . "\n";
-//            $return .= '<Option>На улице</Option>' . "\n";
-//            $return .= "\t" .'</BathroomMulti>' . "\n";
-//            $return .= '<CallsDevices></CallsDevices>' . "\n";
-//            $return .= '<HouseAdditionally>' . "\n";
-//            $return .= '<Option>Терраса или веранда</Option>' . "\n";
-//            $return .= '</HouseAdditionally>' . "\n";
-//            if ($latitude && $longitude) {
-//                $return .= '<Latitude>' . $latitude . '</Latitude>' . "\n";
-//                $return .= '<Longitude>' . $longitude . '</Longitude>' . "\n";
-//            }
-
-//            $return .= "\t" .'<LeaseMultimedia></LeaseMultimedia>' . "\n";
-
-//            $return .= '<LandArea>' . $avito->square . '</LandArea>' . "\n";
-
-//            $return .= "\t" .'<SaleOptions></SaleOptions>' . "\n"; // FIXME
-//            $return .= '<ContactPhone>' . $this->getPhone($avito) . '</ContactPhone>' . "\n";
-//            $return .= '<Heating>' . $avito->heating . '</Heating>' . "\n";
-
-//            if ($avito->heating) {
-//                $return .= '<HeatingType>' . $this->heating_type . '</HeatingType>' . "\n";
-//            }
-
-//            $return .= '<WaterSupply>' . $avito->water_supply . '</WaterSupply>' . "\n";
-//            $return .= '<Sewerage>' . $avito->sewerage . '</Sewerage>' . "\n";
-
             $return .= '</Ad>' . "\n\n";
         };
         return $return;
-    }
-
-    protected function getCoords($model): array
-    {
-        if (empty($model->coords)) {
-            return [null, null];
-        }
-
-        $firstCoords = explode(';', $model->coords);
-
-        if (empty($firstCoords) || !ArrayHelper::getValue($firstCoords, '0')) {
-            return [null, null];
-        }
-
-        $coords = explode(',', ArrayHelper::getValue($firstCoords, '0'));
-
-        if (empty($coords) || count($coords) < 2) {
-            return [null, null];
-        }
-
-        return $coords;
     }
 
     protected function getAddress(string $suffix): string
@@ -140,11 +83,6 @@ class Avito
         $base = 'Ленинградская область, Приозерский район, Громовское сельское поселение, посёлок Портовое, ';
 
         return $base . $suffix;
-    }
-
-    protected function getPhone($lot): string
-    {
-        return $lot->contact_phone;
     }
 
     public function saveXml($xml): bool
