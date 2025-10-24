@@ -64,7 +64,7 @@ class Avito
             $return .= $this->getStringField('Square', $avito->square);
             $return .= $this->getStringField('LandArea', $avito->land_area);
             $return .= $this->getStringField('BuiltYear', $avito->built_year);
-            $return .= $this->getArrayField('ListingFee ', $avito->listingFees, $avito->listing_fee);
+            $return .= $this->getStringField('ListingFee ', $avito->listing_fee);
             $return .= $this->getArrayField('LandStatus', $avito->landStatus, $avito->land_status);
             $return .= $this->getArrayField('Renovation', $avito->renovationValues, $avito->renovation);
             $return .= $this->getArrayField('TransportAccessibility', $avito->transportAccessibility, $avito->transport_accessibility);
